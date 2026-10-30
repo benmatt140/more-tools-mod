@@ -79,6 +79,23 @@ jobs:
           grep -iE 'moretools' ci-out/server-console.log | grep -iE 'error|exception|fail|couldn|invalid|unknown' || echo "none"
           grep -q 'Done (' ci-out/server-console.log
 
+      - name: Run automated in-game tests
+        if: ${{ !cancelled() && hashFiles('build/libs/*.jar') != '' }}
+        run: |
+          cp -r src/gametest/java/. src/main/java/
+          cp -r src/gametest/resources/. src/main/resources/
+          rm -rf run
+          mkdir -p run
+          echo "eula=true" > run/eula.txt
+          set +e
+          timeout 900 ./gradlew runGameTestServer -Pforge_version=$FORGE_VERSION > ci-out/gametest-console.log 2>&1
+          CODE=$?
+          set -e
+          cp run/logs/latest.log ci-out/gametest-latest.log 2>/dev/null || true
+          echo "exit code $CODE" | tee ci-out/gametest-exit.txt
+          grep -iE "test|moretools" ci-out/gametest-console.log | grep -iE "pass|fail|succeed|error|exception|required|optional|moretools" | tail -60 || true
+          exit $CODE
+
       - name: Publish CI output to the ci-output branch
         if: always()
         run: |

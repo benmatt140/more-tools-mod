@@ -21,3 +21,4 @@ net.minecraft.world.phys.BlockHitResult
 net.minecraft.world.phys.HitResult
 net.minecraft.resources.Identifier
 net.minecraftforge.registries.DeferredRegister
+net.minecraft.gametest.framework.GameTestHelper

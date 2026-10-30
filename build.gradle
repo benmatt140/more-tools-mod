@@ -26,6 +26,11 @@ minecraft {
         register('server') {
             args '--nogui'
         }
+
+        // Used by CI to run the automated tests in src/gametest
+        register('gameTestServer') {
+            systemProperty 'forge.enabledGameTestNamespaces', 'moretools'
+        }
     }
 }
 

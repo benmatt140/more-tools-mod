@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:function",
+  "environment": "minecraft:default",
+  "function": "moretools:lumber_axe_fells_tree",
+  "max_ticks": 100,
+  "structure": "forge:empty3x3x3",
+  "padding": 4
+}
