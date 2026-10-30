@@ -79,7 +79,7 @@ jobs:
           grep -iE 'moretools' ci-out/server-console.log | grep -iE 'error|exception|fail|couldn|invalid|unknown' || echo "none"
           grep -q 'Done (' ci-out/server-console.log
 
-      - name: Diagnose test compile
+      - name: Prepare test build
         continue-on-error: true
         run: |
           ./gradlew clean compileJava processResources --no-build-cache -q > ci-out/diag-a.log 2>&1
