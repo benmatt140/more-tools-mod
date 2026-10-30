@@ -89,12 +89,12 @@ jobs:
           mkdir -p run
           echo "eula=true" > run/eula.txt
           set +e
-          timeout 900 ./gradlew runGameTestServer --no-build-cache -Pforge_version=$FORGE_VERSION > ci-out/gametest-console.log 2>&1
+          timeout 900 ./gradlew runGameTestServer --no-build-cache --info -Pforge_version=$FORGE_VERSION > ci-out/gametest-console.log 2>&1
           CODE=$?
           set -e
           cp run/logs/latest.log ci-out/gametest-latest.log 2>/dev/null || true
           cp run/crash-reports/*.txt ci-out/ 2>/dev/null || true
-          find build/sourceSets build/classes build/resources -maxdepth 7 2>/dev/null | head -80 > ci-out/gametest-dirs.txt
+          find build -name '*.class' > ci-out/gametest-dirs.txt 2>&1; find build -name 'mods.toml' >> ci-out/gametest-dirs.txt; ls -la build build/sourceSets/main >> ci-out/gametest-dirs.txt 2>&1
           (javap -v build/sourceSets/main/com/benmatt/moretools/MoreTools.class 2>&1 || javap -v build/classes/java/main/com/benmatt/moretools/MoreTools.class 2>&1) | grep -A3 RuntimeVisibleAnnotations >> ci-out/gametest-dirs.txt || true
           echo "exit code $CODE" | tee ci-out/gametest-exit.txt
           grep -iE "test|moretools" ci-out/gametest-console.log | grep -iE "pass|fail|succeed|error|exception|required|optional|moretools" | tail -60 || true
