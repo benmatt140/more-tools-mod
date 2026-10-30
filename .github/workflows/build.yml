@@ -2,7 +2,11 @@ name: Build mod
 
 on:
   push:
+    branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -20,78 +24,33 @@ jobs:
 
       - name: Pick latest Forge build for this Minecraft version
         run: |
+          mkdir -p ci-out
           MC=$(grep '^minecraft_version=' gradle.properties | cut -d= -f2)
           curl -s https://maven.minecraftforge.net/net/minecraftforge/forge/maven-metadata.xml -o meta.xml
           LATEST=$(grep -o "<version>${MC}-[^<]*</version>" meta.xml | sed -e 's/<version>//' -e 's#</version>##' | sort -V | tail -1)
-          echo "Available Forge builds for $MC:"; grep -o "<version>${MC}-[^<]*</version>" meta.xml | tail -10
           FV=${LATEST#${MC}-}
-          echo "Using Forge $FV"
+          echo "Using Forge $FV" | tee ci-out/forge-version.txt
           echo "FORGE_VERSION=$FV" >> "$GITHUB_ENV"
 
       - name: Dump API signatures (for development)
+        if: ${{ hashFiles('ci-api-classes.txt') != '' }}
         continue-on-error: true
         run: |
           chmod +x gradlew
-          ./gradlew printClasspath -Pforge_version=$FORGE_VERSION --stacktrace
-          mkdir -p build/api
-          JAR=""
-          for f in $(cat build/classpath.txt); do
-            if unzip -l "$f" 2>/dev/null | grep -q 'net/minecraft/world/item/Item.class'; then JAR="$f"; fi
-          done
-          echo "Minecraft classes found in: $JAR"
-          FORGEJARS=$(tr '\n' ':' < build/classpath.txt)
-          for c in \
-            net.minecraft.world.item.ToolMaterial \
-            net.minecraft.world.item.Item \
-            'net.minecraft.world.item.Item$Properties' \
-            'net.minecraft.world.item.Item$TooltipContext' \
-            net.minecraft.world.item.AxeItem \
-            net.minecraft.world.item.ShovelItem \
-            net.minecraft.world.item.HoeItem \
-            net.minecraft.world.item.ItemStack \
-            net.minecraft.world.item.CreativeModeTab \
-            'net.minecraft.world.item.CreativeModeTab$Builder' \
-            net.minecraft.world.item.CreativeModeTabs \
-            net.minecraft.world.item.component.Tool \
-            net.minecraft.world.item.component.TooltipDisplay \
-            net.minecraft.tags.BlockTags \
-            net.minecraft.tags.ItemTags \
-            net.minecraft.tags.TagKey \
-            net.minecraft.server.level.ServerPlayerGameMode \
-            net.minecraft.server.level.ServerPlayer \
-            net.minecraft.world.entity.Entity \
-            net.minecraft.world.entity.LivingEntity \
-            net.minecraft.world.entity.player.Player \
-            net.minecraft.core.Direction \
-            net.minecraft.core.BlockPos \
-            'net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase' \
-            net.minecraft.world.level.block.LeavesBlock \
-            net.minecraft.world.level.Level \
-            net.minecraft.world.phys.BlockHitResult \
-            net.minecraft.world.phys.HitResult \
-            net.minecraft.network.chat.Component \
-            net.minecraft.resources.Identifier \
-            net.minecraft.core.registries.Registries \
-            net.minecraftforge.registries.DeferredRegister \
-            net.minecraftforge.registries.RegistryObject \
-            net.minecraftforge.common.ToolActions \
-            net.minecraftforge.common.extensions.IForgeItem \
-            ; do
-            echo "===== $c" >> build/api/api.txt
-            javap -public -cp "$FORGEJARS" "$c" >> build/api/api.txt 2>&1 || true
-          done
-          wc -l build/api/api.txt
-
-      - name: Upload API dump
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: api-dump
-          path: build/api/
-          if-no-files-found: ignore
+          ./gradlew printClasspath -Pforge_version=$FORGE_VERSION > ci-out/classpath-task.log 2>&1
+          CP=$(tr '\n' ':' < build/classpath.txt)
+          while read -r c; do
+            [ -z "$c" ] && continue
+            echo "===== $c" >> ci-out/api.txt
+            javap -public -cp "$CP" "$c" >> ci-out/api.txt 2>&1 || true
+          done < ci-api-classes.txt
 
       - name: Build
-        run: ./gradlew build -Pforge_version=$FORGE_VERSION --stacktrace
+        run: |
+          chmod +x gradlew
+          set -o pipefail
+          ./gradlew build -Pforge_version=$FORGE_VERSION --stacktrace 2>&1 | tee ci-out/build.log
+          cp build/libs/*.jar ci-out/
 
       - name: Upload mod jar
         uses: actions/upload-artifact@v4
@@ -104,10 +63,10 @@ jobs:
           mkdir -p run
           echo "eula=true" > run/eula.txt
           printf 'online-mode=false\nlevel-type=minecraft\\:flat\nspawn-protection=0\n' > run/server.properties
-          ./gradlew runServer -Pforge_version=$FORGE_VERSION > server-console.log 2>&1 &
+          ./gradlew runServer -Pforge_version=$FORGE_VERSION > ci-out/server-console.log 2>&1 &
           PID=$!
           for i in $(seq 1 120); do
-            if grep -q 'Done (' server-console.log 2>/dev/null; then echo "Server started"; break; fi
+            if grep -q 'Done (' ci-out/server-console.log 2>/dev/null; then echo "Server started"; break; fi
             if ! kill -0 $PID 2>/dev/null; then echo "Server process exited early"; break; fi
             sleep 5
           done
@@ -115,16 +74,19 @@ jobs:
           pkill -f 'net.minecraftforge' || true
           kill $PID 2>/dev/null || true
           sleep 5
-          echo "----- errors/warnings mentioning moretools -----"
-          grep -iE 'moretools' server-console.log | grep -iE 'error|exception|fail|couldn|invalid|unknown' || echo "none"
-          grep -q 'Done (' server-console.log
+          cp run/logs/latest.log ci-out/server-latest.log 2>/dev/null || true
+          echo "----- log lines mentioning moretools with problems -----"
+          grep -iE 'moretools' ci-out/server-console.log | grep -iE 'error|exception|fail|couldn|invalid|unknown' || echo "none"
+          grep -q 'Done (' ci-out/server-console.log
 
-      - name: Upload server log
+      - name: Publish CI output to the ci-output branch
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: server-log
-          path: |
-            server-console.log
-            run/logs/
-          if-no-files-found: ignore
+        run: |
+          cd ci-out
+          echo "${{ github.sha }} ${{ job.status }}" > status.txt
+          git init -q -b ci-output
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -q -m "CI output for ${{ github.sha }}"
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" ci-output

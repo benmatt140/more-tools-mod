@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#minecraft:netherite_tool_materials",
+  "base": "moretools:diamond_excavator",
+  "result": {
+    "id": "moretools:netherite_excavator"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

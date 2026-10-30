@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "moretools:emerald_shovel",
+    "moretools:obsidian_shovel",
+    "moretools:amethyst_shovel",
+    "moretools:iron_excavator",
+    "moretools:diamond_excavator",
+    "moretools:netherite_excavator",
+    "moretools:diamond_paxel",
+    "moretools:netherite_paxel"
+  ]
+}

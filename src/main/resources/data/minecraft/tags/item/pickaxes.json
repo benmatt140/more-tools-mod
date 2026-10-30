@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "moretools:emerald_pickaxe",
+    "moretools:obsidian_pickaxe",
+    "moretools:amethyst_pickaxe",
+    "moretools:iron_hammer",
+    "moretools:diamond_hammer",
+    "moretools:netherite_hammer",
+    "moretools:diamond_paxel",
+    "moretools:netherite_paxel"
+  ]
+}

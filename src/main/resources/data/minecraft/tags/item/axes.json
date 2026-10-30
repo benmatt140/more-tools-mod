@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "moretools:emerald_axe",
+    "moretools:obsidian_axe",
+    "moretools:amethyst_axe",
+    "moretools:iron_lumber_axe",
+    "moretools:diamond_lumber_axe",
+    "moretools:netherite_lumber_axe",
+    "moretools:diamond_paxel",
+    "moretools:netherite_paxel"
+  ]
+}
