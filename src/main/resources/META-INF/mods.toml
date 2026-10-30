@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[${forge_spec},)"
+license="MIT"
+
+[[mods]]
+modId="moretools"
+version="${mod_version}"
+displayName="More Tools"
+authors="benmatt140"
+description='''Adds emerald, obsidian and amethyst tool sets, 3x3 hammers, 3x3 excavators, tree-felling lumber axes and all-in-one paxels.
+Sneak while mining to use hammers, excavators and lumber axes like normal tools.'''
+
+[[dependencies.moretools]]
+    modId="forge"
+    mandatory=true
+    versionRange="[${forge_spec},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.moretools]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[${minecraft_version},${minecraft_next})"
+    ordering="NONE"
+    side="BOTH"

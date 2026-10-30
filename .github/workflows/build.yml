@@ -1,0 +1,130 @@
+name: Build mod
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Pick latest Forge build for this Minecraft version
+        run: |
+          MC=$(grep '^minecraft_version=' gradle.properties | cut -d= -f2)
+          curl -s https://maven.minecraftforge.net/net/minecraftforge/forge/maven-metadata.xml -o meta.xml
+          LATEST=$(grep -o "<version>${MC}-[^<]*</version>" meta.xml | sed -e 's/<version>//' -e 's#</version>##' | sort -V | tail -1)
+          echo "Available Forge builds for $MC:"; grep -o "<version>${MC}-[^<]*</version>" meta.xml | tail -10
+          FV=${LATEST#${MC}-}
+          echo "Using Forge $FV"
+          echo "FORGE_VERSION=$FV" >> "$GITHUB_ENV"
+
+      - name: Dump API signatures (for development)
+        continue-on-error: true
+        run: |
+          chmod +x gradlew
+          ./gradlew printClasspath -Pforge_version=$FORGE_VERSION --stacktrace
+          mkdir -p build/api
+          JAR=""
+          for f in $(cat build/classpath.txt); do
+            if unzip -l "$f" 2>/dev/null | grep -q 'net/minecraft/world/item/Item.class'; then JAR="$f"; fi
+          done
+          echo "Minecraft classes found in: $JAR"
+          FORGEJARS=$(tr '\n' ':' < build/classpath.txt)
+          for c in \
+            net.minecraft.world.item.ToolMaterial \
+            net.minecraft.world.item.Item \
+            'net.minecraft.world.item.Item$Properties' \
+            'net.minecraft.world.item.Item$TooltipContext' \
+            net.minecraft.world.item.AxeItem \
+            net.minecraft.world.item.ShovelItem \
+            net.minecraft.world.item.HoeItem \
+            net.minecraft.world.item.ItemStack \
+            net.minecraft.world.item.CreativeModeTab \
+            'net.minecraft.world.item.CreativeModeTab$Builder' \
+            net.minecraft.world.item.CreativeModeTabs \
+            net.minecraft.world.item.component.Tool \
+            net.minecraft.world.item.component.TooltipDisplay \
+            net.minecraft.tags.BlockTags \
+            net.minecraft.tags.ItemTags \
+            net.minecraft.tags.TagKey \
+            net.minecraft.server.level.ServerPlayerGameMode \
+            net.minecraft.server.level.ServerPlayer \
+            net.minecraft.world.entity.Entity \
+            net.minecraft.world.entity.LivingEntity \
+            net.minecraft.world.entity.player.Player \
+            net.minecraft.core.Direction \
+            net.minecraft.core.BlockPos \
+            'net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase' \
+            net.minecraft.world.level.block.LeavesBlock \
+            net.minecraft.world.level.Level \
+            net.minecraft.world.phys.BlockHitResult \
+            net.minecraft.world.phys.HitResult \
+            net.minecraft.network.chat.Component \
+            net.minecraft.resources.Identifier \
+            net.minecraft.core.registries.Registries \
+            net.minecraftforge.registries.DeferredRegister \
+            net.minecraftforge.registries.RegistryObject \
+            net.minecraftforge.common.ToolActions \
+            net.minecraftforge.common.extensions.IForgeItem \
+            ; do
+            echo "===== $c" >> build/api/api.txt
+            javap -public -cp "$FORGEJARS" "$c" >> build/api/api.txt 2>&1 || true
+          done
+          wc -l build/api/api.txt
+
+      - name: Upload API dump
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-dump
+          path: build/api/
+          if-no-files-found: ignore
+
+      - name: Build
+        run: ./gradlew build -Pforge_version=$FORGE_VERSION --stacktrace
+
+      - name: Upload mod jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: moretools-jar
+          path: build/libs/*.jar
+
+      - name: Test-start a Minecraft server with the mod
+        run: |
+          mkdir -p run
+          echo "eula=true" > run/eula.txt
+          printf 'online-mode=false\nlevel-type=minecraft\\:flat\nspawn-protection=0\n' > run/server.properties
+          ./gradlew runServer -Pforge_version=$FORGE_VERSION > server-console.log 2>&1 &
+          PID=$!
+          for i in $(seq 1 120); do
+            if grep -q 'Done (' server-console.log 2>/dev/null; then echo "Server started"; break; fi
+            if ! kill -0 $PID 2>/dev/null; then echo "Server process exited early"; break; fi
+            sleep 5
+          done
+          sleep 15
+          pkill -f 'net.minecraftforge' || true
+          kill $PID 2>/dev/null || true
+          sleep 5
+          echo "----- errors/warnings mentioning moretools -----"
+          grep -iE 'moretools' server-console.log | grep -iE 'error|exception|fail|couldn|invalid|unknown' || echo "none"
+          grep -q 'Done (' server-console.log
+
+      - name: Upload server log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-log
+          path: |
+            server-console.log
+            run/logs/
+          if-no-files-found: ignore
