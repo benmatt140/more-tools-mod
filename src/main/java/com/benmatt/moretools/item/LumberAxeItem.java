@@ -2,16 +2,15 @@ package com.benmatt.moretools.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 /** An axe that chops down a whole tree at once. Sneak to chop a single log. Still strips logs. */
-public class LumberAxeItem extends AxeItem {
-    public LumberAxeItem(ToolMaterial material, float attackDamage, float attackSpeed, Properties properties) {
-        super(material, attackDamage, attackSpeed, properties);
+public class LumberAxeItem extends Item {
+    public LumberAxeItem(Item.Properties properties) {
+        super(properties);
     }
 
     @Override

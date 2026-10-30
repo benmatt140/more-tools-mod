@@ -4,10 +4,7 @@ import com.benmatt.moretools.MoreTools;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
@@ -64,9 +61,9 @@ public final class ModItems {
     private static void toolSet(String name, ToolMaterial material) {
         register(name + "_sword", props -> new Item(props.sword(material, 3.0F, -2.4F)));
         register(name + "_pickaxe", props -> new Item(props.pickaxe(material, 1.0F, -2.8F)));
-        register(name + "_axe", props -> new AxeItem(material, 5.0F, -3.0F, props));
-        register(name + "_shovel", props -> new ShovelItem(material, 1.5F, -3.0F, props));
-        register(name + "_hoe", props -> new HoeItem(material, -3.0F, 0.0F, props));
+        register(name + "_axe", props -> new Item(props.axe(material, 5.0F, -3.0F)));
+        register(name + "_shovel", props -> new Item(props.shovel(material, 1.5F, -3.0F)));
+        register(name + "_hoe", props -> new Item(props.hoe(material, -3.0F, 0.0F)));
     }
 
     private static RegistryObject<Item> hammer(String name, ToolMaterial material, boolean fireproof) {
@@ -76,18 +73,18 @@ public final class ModItems {
 
     private static RegistryObject<Item> excavator(String name, ToolMaterial material, boolean fireproof) {
         ToolMaterial big = ModToolMaterials.big(material);
-        return register(name, props -> new ExcavatorItem(big, 2.5F, -3.2F, fire(props, fireproof)));
+        return register(name, props -> new ExcavatorItem(fire(props, fireproof).shovel(big, 2.5F, -3.2F)));
     }
 
     private static RegistryObject<Item> lumberAxe(String name, ToolMaterial material, boolean fireproof) {
         ToolMaterial big = ModToolMaterials.big(material);
-        return register(name, props -> new LumberAxeItem(big, 6.0F, -3.3F, fire(props, fireproof)));
+        return register(name, props -> new LumberAxeItem(fire(props, fireproof).axe(big, 6.0F, -3.3F)));
     }
 
     private static RegistryObject<Item> paxel(String name, ToolMaterial material, boolean fireproof) {
         ToolMaterial combined = ModToolMaterials.paxel(material);
         return register(name, props -> new Item(
-            combined.applyToolProperties(fire(props, fireproof), MINEABLE_WITH_PAXEL, 4.0F, -2.8F, 0.0F)));
+            fire(props, fireproof).tool(combined, MINEABLE_WITH_PAXEL, 4.0F, -2.8F, 0.0F)));
     }
 
     private static Item.Properties fire(Item.Properties props, boolean fireproof) {
