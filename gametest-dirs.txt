@@ -1,0 +1,38 @@
+build/sourceSets/main/com/benmatt/moretools/MoreTools.class
+build/sourceSets/main/com/benmatt/moretools/gametest/MoreToolsGameTests.class
+build/sourceSets/main/com/benmatt/moretools/item/LumberAxeItem.class
+build/sourceSets/main/com/benmatt/moretools/item/ModItems.class
+build/sourceSets/main/com/benmatt/moretools/item/ExcavatorItem.class
+build/sourceSets/main/com/benmatt/moretools/item/HammerItem.class
+build/sourceSets/main/com/benmatt/moretools/item/ModToolMaterials.class
+build/sourceSets/main/com/benmatt/moretools/item/AreaMining$1.class
+build/sourceSets/main/com/benmatt/moretools/item/AreaMining.class
+build/sourceSets/main/com/benmatt/moretools/item/ModCreativeTab.class
+build/sourceSets/main/META-INF/mods.toml
+build:
+total 24
+drwxr-xr-x  6 runner runner 4096 Oct 30 18:54 .
+drwxr-xr-x 11 runner runner 4096 Oct 30 18:54 ..
+drwxr-xr-x  3 runner runner 4096 Oct 30 18:54 generated
+drwxr-xr-x  3 runner runner 4096 Oct 30 18:54 minecraftforge
+drwxr-xr-x  3 runner runner 4096 Oct 30 18:54 sourceSets
+drwxr-xr-x  4 runner runner 4096 Oct 30 18:54 tmp
+
+build/sourceSets/main:
+total 28
+drwxr-xr-x 6 runner runner 4096 Oct 30 18:54 .
+drwxr-xr-x 3 runner runner 4096 Oct 30 18:54 ..
+drwxr-xr-x 2 runner runner 4096 Oct 30 18:54 META-INF
+drwxr-xr-x 3 runner runner 4096 Oct 30 18:54 assets
+drwxr-xr-x 3 runner runner 4096 Oct 30 18:54 com
+drwxr-xr-x 4 runner runner 4096 Oct 30 18:54 data
+-rw-r--r-- 1 runner runner  108 Oct 30 18:54 pack.mcmeta
+  #87 = Utf8               RuntimeVisibleAnnotations
+  #88 = Utf8               Lnet/minecraftforge/fml/common/Mod;
+  #89 = Utf8               value
+{
+--
+RuntimeVisibleAnnotations:
+  0: #88(#89=s#71)
+    net.minecraftforge.fml.common.Mod(
+      value="moretools"

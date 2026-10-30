@@ -1,0 +1,73 @@
+Initialized native services in: /home/runner/.gradle/native
+Initialized jansi services in: /home/runner/.gradle/native
+The client will now receive all logging from the daemon (pid: 2267). The daemon log file: /home/runner/.gradle/daemon/9.7.1/daemon-2267.out.log
+Starting 5th build in daemon [uptime: 54.46 secs, performance: 100%, GC rate: 0.00/s, heap usage: 0% of 4 GiB]
+Using 4 worker leases.
+Operational build model parameters: {cachingModelBuilding=false, configurationCache=false, configurationCacheDisabledReason=null, configurationCacheParallelLoad=false, configurationCacheParallelStore=false, configureOnDemand=true, invalidateCoupledProjects=false, isolatedProjects=false, isolatedProjectsDiagnostics=false, isolatedProjectsDangerouslyIgnoreProblems=false, modelAsProjectDependency=false, modelBuilding=false, parallelModelBuilding=false, parallelProjectConfiguration=false, parallelProjectExecution=true, vintage=true}
+Configuration on demand is an incubating feature.
+Now considering [/home/runner/work/more-tools-mod/more-tools-mod] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Resolved plugin [id: 'org.gradle.toolchains.foojay-resolver-convention', version: '1.0.0']
+Settings evaluated using settings file '/home/runner/work/more-tools-mod/more-tools-mod/settings.gradle'.
+Projects loaded. Root project using build file '/home/runner/work/more-tools-mod/more-tools-mod/build.gradle'.
+Included projects: [root project 'moretools']
+
+> Configure project :
+Evaluating root project 'moretools' using build file '/home/runner/work/more-tools-mod/more-tools-mod/build.gradle'.
+Resolved plugin [id: 'java']
+Resolved plugin [id: 'idea']
+Resolved plugin [id: 'eclipse']
+Resolved plugin [id: 'net.minecraftforge.gradle', version: '[7.0.17,8)']
+Applying ForgeGradle Magic to root project 'moretools'
+Executing Mavenizer: 
+  Classpath: /home/runner/.gradle/caches/modules-2/files-2.1/net.minecraftforge/minecraft-mavenizer/0.5.21/56852d6d8ac0176e2f3fe9846fed9163ebc10d0d/minecraft-mavenizer-0.5.21.jar
+  Java: /usr/lib/jvm/temurin-25-jdk-amd64/bin/java
+  Arguments: --maven
+             --cache /home/runner/.gradle/caches/minecraftforge/forgegradle/mavenizer/caches
+             --jdk-cache /home/runner/.gradle/caches/minecraftforge/forgegradle/mavenizer/caches
+             --output /home/runner/work/more-tools-mod/more-tools-mod/.gradle/mavenizer/repo
+             --artifact net.minecraftforge:forge
+             --version 26.3-66.1.0
+             --global-auxiliary-variants
+             --output-json /home/runner/work/more-tools-mod/more-tools-mod/.gradle/mavenizer/dependencies/default.json
+             --repository MinecraftForge,https://maven.minecraftforge.net/
+             --repository Minecraft libraries,https://libraries.minecraft.net/
+             --repository MavenRepo,https://repo.maven.apache.org/maven2/
+             --local-cache /home/runner/work/more-tools-mod/more-tools-mod/build/minecraftforge/forgegradle/mavenizer
+Starting process 'command '/usr/lib/jvm/temurin-25-jdk-amd64/bin/java''. Working directory: /home/runner/work/more-tools-mod/more-tools-mod Command: /usr/lib/jvm/temurin-25-jdk-amd64/bin/java -Dfile.encoding=UTF-8 -Duser.country -Duser.language=en -Duser.variant -jar /home/runner/.gradle/caches/modules-2/files-2.1/net.minecraftforge/minecraft-mavenizer/0.5.21/56852d6d8ac0176e2f3fe9846fed9163ebc10d0d/minecraft-mavenizer-0.5.21.jar --maven --cache /home/runner/.gradle/caches/minecraftforge/forgegradle/mavenizer/caches --jdk-cache /home/runner/.gradle/caches/minecraftforge/forgegradle/mavenizer/caches --output /home/runner/work/more-tools-mod/more-tools-mod/.gradle/mavenizer/repo --artifact net.minecraftforge:forge --version 26.3-66.1.0 --global-auxiliary-variants --output-json /home/runner/work/more-tools-mod/more-tools-mod/.gradle/mavenizer/dependencies/default.json --repository MinecraftForge,https://maven.minecraftforge.net/ --repository Minecraft libraries,https://libraries.minecraft.net/ --repository MavenRepo,https://repo.maven.apache.org/maven2/ --local-cache /home/runner/work/more-tools-mod/more-tools-mod/build/minecraftforge/forgegradle/mavenizer
+Successfully started process 'command '/usr/lib/jvm/temurin-25-jdk-amd64/bin/java''
+Minecraft Maven is up-to-date, took 0:00.555
+Task name matched 'processResources'
+Selected primary task 'processResources' from project :
+All projects evaluated.
+Tasks to be executed: [task ':processResources']
+Tasks that were excluded: []
+Resolve mutations for :processResources (Thread[#165,Execution worker,5,main]) started.
+:processResources (Thread[#165,Execution worker,5,main]) started.
+
+> Task :processResources
+Caching disabled for task ':processResources' because:
+  Build cache is disabled
+  Not worth caching
+Task ':processResources' is not up-to-date because:
+  Output property 'destinationDir' file /home/runner/work/more-tools-mod/more-tools-mod/build/sourceSets/main/META-INF has been removed.
+  Output property 'destinationDir' file /home/runner/work/more-tools-mod/more-tools-mod/build/sourceSets/main/META-INF/mods.toml has been removed.
+  Output property 'destinationDir' file /home/runner/work/more-tools-mod/more-tools-mod/build/sourceSets/main/assets has been removed.
+  and more...
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_5-1793386494776.json
+
+BUILD SUCCESSFUL in 1s
+1 actionable task: 1 executed
+--- with gametests, after processResources
+build/sourceSets/main/com/benmatt/moretools/MoreTools.class
+build/sourceSets/main/com/benmatt/moretools/gametest/MoreToolsGameTests.class
+build/sourceSets/main/com/benmatt/moretools/item/LumberAxeItem.class
+build/sourceSets/main/com/benmatt/moretools/item/ModItems.class
+build/sourceSets/main/com/benmatt/moretools/item/ExcavatorItem.class
+build/sourceSets/main/com/benmatt/moretools/item/HammerItem.class
+build/sourceSets/main/com/benmatt/moretools/item/ModToolMaterials.class
+build/sourceSets/main/com/benmatt/moretools/item/AreaMining$1.class
+build/sourceSets/main/com/benmatt/moretools/item/AreaMining.class
+build/sourceSets/main/com/benmatt/moretools/item/ModCreativeTab.class

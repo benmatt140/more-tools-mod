@@ -1,0 +1,9 @@
+src/main/java/com/benmatt/moretools/MoreTools.java
+src/main/java/com/benmatt/moretools/item/ModItems.java
+src/main/java/com/benmatt/moretools/item/HammerItem.java
+src/main/java/com/benmatt/moretools/item/ModToolMaterials.java
+src/main/java/com/benmatt/moretools/item/LumberAxeItem.java
+src/main/java/com/benmatt/moretools/item/AreaMining.java
+src/main/java/com/benmatt/moretools/item/ExcavatorItem.java
+src/main/java/com/benmatt/moretools/item/ModCreativeTab.java
+src/gametest/java/com/benmatt/moretools/gametest/MoreToolsGameTests.java

@@ -1,0 +1,90 @@
+Initialized native services in: /home/runner/.gradle/native
+Initialized jansi services in: /home/runner/.gradle/native
+The client will now receive all logging from the daemon (pid: 2267). The daemon log file: /home/runner/.gradle/daemon/9.7.1/daemon-2267.out.log
+Starting 4th build in daemon [uptime: 52.506 secs, performance: 100%, GC rate: 0.00/s, heap usage: 0% of 4 GiB]
+Using 4 worker leases.
+Operational build model parameters: {cachingModelBuilding=false, configurationCache=false, configurationCacheDisabledReason=null, configurationCacheParallelLoad=false, configurationCacheParallelStore=false, configureOnDemand=true, invalidateCoupledProjects=false, isolatedProjects=false, isolatedProjectsDiagnostics=false, isolatedProjectsDangerouslyIgnoreProblems=false, modelAsProjectDependency=false, modelBuilding=false, parallelModelBuilding=false, parallelProjectConfiguration=false, parallelProjectExecution=true, vintage=true}
+Configuration on demand is an incubating feature.
+Now considering [/home/runner/work/more-tools-mod/more-tools-mod] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Resolved plugin [id: 'org.gradle.toolchains.foojay-resolver-convention', version: '1.0.0']
+Settings evaluated using settings file '/home/runner/work/more-tools-mod/more-tools-mod/settings.gradle'.
+Projects loaded. Root project using build file '/home/runner/work/more-tools-mod/more-tools-mod/build.gradle'.
+Included projects: [root project 'moretools']
+
+> Configure project :
+Evaluating root project 'moretools' using build file '/home/runner/work/more-tools-mod/more-tools-mod/build.gradle'.
+Resolved plugin [id: 'java']
+Resolved plugin [id: 'idea']
+Resolved plugin [id: 'eclipse']
+Resolved plugin [id: 'net.minecraftforge.gradle', version: '[7.0.17,8)']
+Applying ForgeGradle Magic to root project 'moretools'
+Executing Mavenizer: 
+  Classpath: /home/runner/.gradle/caches/modules-2/files-2.1/net.minecraftforge/minecraft-mavenizer/0.5.21/56852d6d8ac0176e2f3fe9846fed9163ebc10d0d/minecraft-mavenizer-0.5.21.jar
+  Java: /usr/lib/jvm/temurin-25-jdk-amd64/bin/java
+  Arguments: --maven
+             --cache /home/runner/.gradle/caches/minecraftforge/forgegradle/mavenizer/caches
+             --jdk-cache /home/runner/.gradle/caches/minecraftforge/forgegradle/mavenizer/caches
+             --output /home/runner/work/more-tools-mod/more-tools-mod/.gradle/mavenizer/repo
+             --artifact net.minecraftforge:forge
+             --version 26.3-66.1.0
+             --global-auxiliary-variants
+             --output-json /home/runner/work/more-tools-mod/more-tools-mod/.gradle/mavenizer/dependencies/default.json
+             --repository MinecraftForge,https://maven.minecraftforge.net/
+             --repository Minecraft libraries,https://libraries.minecraft.net/
+             --repository MavenRepo,https://repo.maven.apache.org/maven2/
+             --local-cache /home/runner/work/more-tools-mod/more-tools-mod/build/minecraftforge/forgegradle/mavenizer
+Starting process 'command '/usr/lib/jvm/temurin-25-jdk-amd64/bin/java''. Working directory: /home/runner/work/more-tools-mod/more-tools-mod Command: /usr/lib/jvm/temurin-25-jdk-amd64/bin/java -Dfile.encoding=UTF-8 -Duser.country -Duser.language=en -Duser.variant -jar /home/runner/.gradle/caches/modules-2/files-2.1/net.minecraftforge/minecraft-mavenizer/0.5.21/56852d6d8ac0176e2f3fe9846fed9163ebc10d0d/minecraft-mavenizer-0.5.21.jar --maven --cache /home/runner/.gradle/caches/minecraftforge/forgegradle/mavenizer/caches --jdk-cache /home/runner/.gradle/caches/minecraftforge/forgegradle/mavenizer/caches --output /home/runner/work/more-tools-mod/more-tools-mod/.gradle/mavenizer/repo --artifact net.minecraftforge:forge --version 26.3-66.1.0 --global-auxiliary-variants --output-json /home/runner/work/more-tools-mod/more-tools-mod/.gradle/mavenizer/dependencies/default.json --repository MinecraftForge,https://maven.minecraftforge.net/ --repository Minecraft libraries,https://libraries.minecraft.net/ --repository MavenRepo,https://repo.maven.apache.org/maven2/ --local-cache /home/runner/work/more-tools-mod/more-tools-mod/build/minecraftforge/forgegradle/mavenizer
+Successfully started process 'command '/usr/lib/jvm/temurin-25-jdk-amd64/bin/java''
+Minecraft Maven is up-to-date, took 0:00.536
+Task name matched 'clean'
+Task name matched 'compileJava'
+Selected primary task 'clean' from project :
+Selected primary task 'compileJava' from project :
+All projects evaluated.
+Tasks to be executed: [task ':clean', task ':compileJava']
+Tasks that were excluded: []
+Resolve mutations for :clean (Thread[#144,Execution worker,5,main]) started.
+:clean (Thread[#144,Execution worker,5,main]) started.
+destroyer locations for task group 0 (Thread[#143,included builds,5,main]) started.
+
+> Task :clean
+Caching disabled for task ':clean' because:
+  Build cache is disabled
+Task ':clean' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+Resolve mutations for :compileJava (Thread[#144,Execution worker,5,main]) started.
+:compileJava (Thread[#144,Execution worker,5,main]) started.
+
+> Task :compileJava
+Caching disabled for task ':compileJava' because:
+  Build cache is disabled
+Task ':compileJava' is not up-to-date because:
+  Output property 'destinationDirectory' file /home/runner/work/more-tools-mod/more-tools-mod/build/sourceSets/main has been removed.
+  Output property 'destinationDirectory' file /home/runner/work/more-tools-mod/more-tools-mod/build/sourceSets/main/com has been removed.
+  Output property 'destinationDirectory' file /home/runner/work/more-tools-mod/more-tools-mod/build/sourceSets/main/com/benmatt has been removed.
+  and more...
+The input changes require a full rebuild for incremental task ':compileJava'.
+Compilation mode: in-process compilation
+Full recompilation is required because no incremental change information is available. This is usually caused by clean builds or changing compiler arguments.
+Compiling with toolchain '/usr/lib/jvm/temurin-25-jdk-amd64'.
+Compiling with JDK Java compiler API.
+Class dependency analysis for incremental compilation took 0.001 secs.
+Created classpath snapshot for incremental compilation in 0.031 secs.
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_5-1793386492822.json
+
+BUILD SUCCESSFUL in 1s
+2 actionable tasks: 2 executed
+--- with gametests, after compileJava only
+build/sourceSets/main/com/benmatt/moretools/MoreTools.class
+build/sourceSets/main/com/benmatt/moretools/gametest/MoreToolsGameTests.class
+build/sourceSets/main/com/benmatt/moretools/item/LumberAxeItem.class
+build/sourceSets/main/com/benmatt/moretools/item/ModItems.class
+build/sourceSets/main/com/benmatt/moretools/item/ExcavatorItem.class
+build/sourceSets/main/com/benmatt/moretools/item/HammerItem.class
+build/sourceSets/main/com/benmatt/moretools/item/ModToolMaterials.class
+build/sourceSets/main/com/benmatt/moretools/item/AreaMining$1.class
+build/sourceSets/main/com/benmatt/moretools/item/AreaMining.class
+build/sourceSets/main/com/benmatt/moretools/item/ModCreativeTab.class

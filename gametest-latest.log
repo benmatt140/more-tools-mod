@@ -1,0 +1,50 @@
+[30Oct2026 18:55:00.711] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--gameDir, ., --launchTarget, forge_userdev_server_gametest]
+[30Oct2026 18:55:00.713] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 25.0.5+8-LTS
+[30Oct2026 18:55:00.713] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.2.6 starting: java version 25.0.5 by Eclipse Adoptium; OS Linux arch amd64 version 7.0.0-1017-azure
+[30Oct2026 18:55:00.764] [main/WARN] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Configuration file /home/runner/work/more-tools-mod/more-tools-mod/run/config/fml.toml is not correct. Correcting
+[30Oct2026 18:55:00.765] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowSkipGLVersions] was corrected from null to []
+[30Oct2026 18:55:00.767] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowLogHelpMessage] was corrected from null to true
+[30Oct2026 18:55:00.767] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowSquir] was corrected from null to false
+[30Oct2026 18:55:00.767] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowShowCPU] was corrected from null to false
+[30Oct2026 18:55:00.776] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forge_userdev_server_gametest
+[30Oct2026 18:55:00.840] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=jar:file:///home/runner/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.7/8ab114ac385e6dbdad5efafe28aba4df8120915f/mixin-0.8.7.jar!/ Service=ModLauncher Env=SERVER
+[30Oct2026 18:55:01.643] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[30Oct2026 18:55:01.815] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forge_userdev_server_gametest' with arguments [--gameDir, .]
+[30Oct2026 18:55:02.021] [main/INFO] [net.minecraft.gametest.framework.GameTestMainUtil/]: Running GameTestMain with cwd '/home/runner/work/more-tools-mod/more-tools-mod/run', universe path 'gametestserver'
+[30Oct2026 18:55:05.068] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 66.1.2, for MC 26.3 with MCP 20260918.230105
+[30Oct2026 18:55:05.069] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v66.1.2 Initialized
+[30Oct2026 18:55:05.077] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Opening jdk.naming.dns/com.sun.jndi.dns to java.naming
+[30Oct2026 18:55:05.244] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Configuration file /home/runner/work/more-tools-mod/more-tools-mod/run/config/forge-common.toml is not correct. Correcting
+[30Oct2026 18:55:05.245] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key general was corrected from null to its default, SynchronizedConfig{DataHolder:{}}. 
+[30Oct2026 18:55:05.245] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key general.logLegacyTagWarnings was corrected from null to its default, OFF. 
+[30Oct2026 18:55:05.246] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key general.channelListLimit was corrected from null to its default, 1024. 
+[30Oct2026 18:55:05.388] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[30Oct2026 18:55:05.776] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: AHEAD Current: 66.1.2 Target: null
+[30Oct2026 18:55:06.278] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/home/runner/work/more-tools-mod/more-tools-mod/.gradle/mavenizer/repo/net/minecraftforge/forge/26.3-66.1.2/forge-26.3-66.1.2.jar%230!/assets/.mcassetsroot' uses unexpected schema
+[30Oct2026 18:55:06.279] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/home/runner/work/more-tools-mod/more-tools-mod/.gradle/mavenizer/repo/net/minecraftforge/forge/26.3-66.1.2/forge-26.3-66.1.2.jar%230!/data/.mcassetsroot' uses unexpected schema
+[30Oct2026 18:55:07.362] [Worker-Main-3/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 1866 advancements
+[30Oct2026 18:55:07.437] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Configuration file gametestserver/gametestworld/serverconfig/forge-server.toml is not correct. Correcting
+[30Oct2026 18:55:07.438] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server was corrected from null to its default, SynchronizedConfig{DataHolder:{}}. 
+[30Oct2026 18:55:07.438] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.removeErroringBlockEntities was corrected from null to its default, false. 
+[30Oct2026 18:55:07.438] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.removeErroringEntities was corrected from null to its default, false. 
+[30Oct2026 18:55:07.439] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.fullBoundingBoxLadders was corrected from null to its default, false. 
+[30Oct2026 18:55:07.439] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.permissionHandler was corrected from null to its default, forge:default_handler. 
+[30Oct2026 18:55:07.440] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.advertiseDedicatedServerToLan was corrected from null to its default, true. 
+[30Oct2026 18:55:07.617] [Server thread/INFO] [net.minecraft.server.level.progress.LoggingLevelLoadListener/]: Selecting global world spawn...
+[30Oct2026 18:55:07.966] [Server thread/INFO] [net.minecraft.server.level.progress.LoggingLevelLoadListener/]: Loading 0 persistent chunks...
+[30Oct2026 18:55:07.967] [Server thread/INFO] [net.minecraft.server.level.progress.LoggingLevelLoadListener/]: Preparing spawn area: 100%
+[30Oct2026 18:55:07.968] [Server thread/INFO] [net.minecraft.server.level.progress.LoggingLevelLoadListener/]: Time elapsed: 352 ms
+[30Oct2026 18:55:07.974] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: Started game test server
+[30Oct2026 18:55:08.051] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: 8 tests are now running at position -7503812, 4, -11642763!
+[30Oct2026 18:55:08.649] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestRunner/]: Running test environment 'minecraft:default' batch 0 (8 tests)...
+[30Oct2026 18:55:08.990] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [++++++++]
+[30Oct2026 18:55:08.992] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: ========= 8 GAME TESTS COMPLETE IN 939.3 ms ======================
+[30Oct2026 18:55:08.992] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: All 8 required tests passed :)
+[30Oct2026 18:55:08.993] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: ====================================================
+[30Oct2026 18:55:09.002] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[30Oct2026 18:55:09.003] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[30Oct2026 18:55:09.003] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[30Oct2026 18:55:09.393] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Test Level]'/minecraft:overworld
+[30Oct2026 18:55:10.192] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_end
+[30Oct2026 18:55:10.196] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_nether
+[30Oct2026 18:55:10.523] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: Game test server shutting down
