@@ -12,6 +12,13 @@ base {
     archivesName = "moretools-${minecraft_version}"
 }
 
+// The automated in-game tests in src/gametest are only compiled in when building with -Pgametests (CI does this).
+// They are never part of the released jar.
+if (project.hasProperty('gametests')) {
+    sourceSets.main.java.srcDir 'src/gametest/java'
+    sourceSets.main.resources.srcDir 'src/gametest/resources'
+}
+
 // Minecraft 26.1+ runs on Java 25
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 

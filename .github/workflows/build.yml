@@ -82,14 +82,13 @@ jobs:
       - name: Run automated in-game tests
         if: ${{ !cancelled() && hashFiles('ci-out/*.jar') != '' }}
         run: |
+          find src -name '*.java' > ci-out/gametest-sources.txt
           ./gradlew clean -q
-          cp -r src/gametest/java/. src/main/java/
-          cp -r src/gametest/resources/. src/main/resources/
           rm -rf run
           mkdir -p run
           echo "eula=true" > run/eula.txt
           set +e
-          timeout 900 ./gradlew runGameTestServer --no-build-cache --info -Pforge_version=$FORGE_VERSION > ci-out/gametest-console.log 2>&1
+          timeout 900 ./gradlew runGameTestServer --no-build-cache -Pgametests -Pforge_version=$FORGE_VERSION > ci-out/gametest-console.log 2>&1
           CODE=$?
           set -e
           cp run/logs/latest.log ci-out/gametest-latest.log 2>/dev/null || true
@@ -104,8 +103,6 @@ jobs:
         if: ${{ !cancelled() && hashFiles('ci-out/*.jar') != '' }}
         continue-on-error: true
         run: |
-          git checkout -- src/main || true
-          git clean -fdq src/main || true
           ./gradlew clean -q
           sudo apt-get update -qq && sudo apt-get install -y -qq xvfb imagemagick mesa-utils libgl1-mesa-dri libglx-mesa0 libgl1 libegl1 mesa-vulkan-drivers > /dev/null
           rm -rf run && mkdir -p run
