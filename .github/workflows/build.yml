@@ -80,15 +80,16 @@ jobs:
           grep -q 'Done (' ci-out/server-console.log
 
       - name: Run automated in-game tests
-        if: ${{ !cancelled() && hashFiles('build/libs/*.jar') != '' }}
+        if: ${{ !cancelled() && hashFiles('ci-out/*.jar') != '' }}
         run: |
+          ./gradlew clean -q
           cp -r src/gametest/java/. src/main/java/
           cp -r src/gametest/resources/. src/main/resources/
           rm -rf run
           mkdir -p run
           echo "eula=true" > run/eula.txt
           set +e
-          timeout 900 ./gradlew runGameTestServer -Pforge_version=$FORGE_VERSION > ci-out/gametest-console.log 2>&1
+          timeout 900 ./gradlew runGameTestServer --no-build-cache -Pforge_version=$FORGE_VERSION > ci-out/gametest-console.log 2>&1
           CODE=$?
           set -e
           cp run/logs/latest.log ci-out/gametest-latest.log 2>/dev/null || true
@@ -97,18 +98,21 @@ jobs:
           exit $CODE
 
       - name: Start the game client and check textures/models load
-        if: ${{ !cancelled() && hashFiles('build/libs/*.jar') != '' }}
+        if: ${{ !cancelled() && hashFiles('ci-out/*.jar') != '' }}
         continue-on-error: true
         run: |
           git checkout -- src/main || true
           git clean -fdq src/main || true
-          sudo apt-get update -qq && sudo apt-get install -y -qq xvfb imagemagick mesa-utils libgl1-mesa-dri > /dev/null
+          ./gradlew clean -q
+          sudo apt-get update -qq && sudo apt-get install -y -qq xvfb imagemagick mesa-utils libgl1-mesa-dri libglx-mesa0 libgl1 libegl1 mesa-vulkan-drivers > /dev/null
           rm -rf run && mkdir -p run
           printf 'onboardAccessibility:false\nskipMultiplayerWarning:true\ntutorialStep:none\n' > run/options.txt
           export LIBGL_ALWAYS_SOFTWARE=1
-          Xvfb :99 -screen 0 1280x720x24 > /dev/null 2>&1 &
+          Xvfb :99 -screen 0 1280x720x24 +extension GLX +render -noreset > /dev/null 2>&1 &
+          sleep 3
+          DISPLAY=:99 glxinfo -B > ci-out/glxinfo.txt 2>&1 || true
           export DISPLAY=:99
-          ./gradlew runClient -Pforge_version=$FORGE_VERSION > ci-out/client-console.log 2>&1 &
+          ./gradlew runClient --no-build-cache -Pforge_version=$FORGE_VERSION > ci-out/client-console.log 2>&1 &
           for i in $(seq 1 60); do
             if grep -qE 'Created: .*textures/atlas/items|Sound engine started|Narrator library' ci-out/client-console.log 2>/dev/null; then break; fi
             sleep 5
